@@ -1,0 +1,1580 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+  <title>
+   Sales Bot Playground
+  </title>
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" name="viewport"/>
+  <meta content="SimplyGames - UK's top destination for the latest PS5, Xbox Series X, Switch, and PC titles. Dive into a vast selection of gaming consoles and accessories." name="description"/>
+  <link href="https://www.simplygames.com/ps4" rel="canonical"/>
+  <link href="https://www.simplygames.com/images/favicon/apple-touch-icon.png?v=2" rel="apple-touch-icon" sizes="180x180"/>
+  <link href="https://www.simplygames.com/images/favicon/favicon-32x32.png?v=2" rel="icon" sizes="32x32" type="image/png"/>
+  <link href="https://www.simplygames.com/images/favicon/favicon-16x16.png?v=2" rel="icon" sizes="16x16" type="image/png"/>
+  <link href="https://www.simplygames.com/images/favicon/site.webmanifest?v=2" rel="manifest"/>
+  <link color="#5bbad5" href="https://www.simplygames.com/images/favicon/safari-pinned-tab.svg?v=2" rel="mask-icon"/>
+  <meta content="#da532c" name="msapplication-TileColor"/>
+  <meta content="#ffffff" name="theme-color"/>
+  <link href="https://www.simplygames.com/newsite/css/reset.css?v=1725726384" rel="stylesheet" type="text/css">
+   <link href="https://www.simplygames.com/newsite/css/main_v4_min.css?v=1725726384" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Oxygen:wght@400;700&amp;display=swap" rel="stylesheet"/>
+    <script src="https://www.simplygames.com/newsite/js/jquery-2.1.4.min.js" type="text/javascript">
+    </script>
+    <script src="https://www.simplygames.com/newsite/js/responsiveslides.min.js" type="text/javascript">
+    </script>
+    <script src="https://www.simplygames.com/newsite/js/menu.min.js?v=4" type="text/javascript">
+    </script>
+    <script src="https://www.simplygames.com/newsite/js/jquery.zoom.min.js" type="text/javascript">
+    </script>
+    <script src="https://www.simplygames.com/newsite/js/jquery.lazy.min.js" type="text/javascript">
+    </script>
+    <script id="mcjs">
+     !function(c,h,i,m,p){m=c.createElement(h),p=c.getElementsByTagName(h)[0],m.async=1,m.src=i,p.parentNode.insertBefore(m,p)}(document,"script","https://chimpstatic.com/mcjs-connected/js/users/5ef34e59ed81dc5ab7ac22442/28460419387b9d7e15959f71d.js");
+    </script>
+    <style>
+img {
+    width: 300px;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+p {
+    font-size: 18px;
+    margin: 20px 0;
+}
+
+#output {
+    margin-top: 20px;
+    font-weight: bold;
+    background-color: #f0f0f0;
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+body {
+    padding: 20px;
+}
+
+#cattyImage {
+    position: absolute;
+    display: none; /* Initially hidden */
+    z-index: 10000; /* On top of other elements */
+    width: 100px;
+    height: auto;
+    transition: top 0.8s ease, left 0.8s ease;
+}
+
+#textInputContainer {
+    position: absolute;
+    display: none; /* Initially hidden */
+    z-index: 100001; /* Above the cat image */
+    margin-top: 20px;
+    width: 350px; /* Width of the input container */
+    text-align: left; /* Align text to the left */
+}
+
+#userTextInput {
+    width: calc(100% - 60px); /* Adjusted width to account for button */
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 12px;
+    margin-bottom: 10px;
+}
+
+#userTextInput:focus {
+    outline: none;
+    border-color: #007bff;
+}
+
+/* Styling for the speech bubble */
+#helpMessage {
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 20px;
+    background-color: #f7c56a;
+    padding: 15px;
+    border-radius: 10px;
+    position: relative;
+}
+
+#helpMessage::after {
+    content: '';
+    position: absolute;
+    bottom: -20px; /* This positions the triangle below the help message box */
+    left: 20px;
+    width: 0;
+    height: 0;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    border-top: 20px solid #f7c56a; /* Triangle color same as the box */
+}
+
+.input-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#submitButton {
+    background-color: #007bff;
+    border: none;
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#submitButton img {
+    width: 20px;
+    height: 20px;
+    display: block;
+    margin: 0;
+}
+
+/* Button hover effect */
+#submitButton:hover {
+    background-color: #0056b3;
+}
+
+
+    </style>
+   </link>
+  </link>
+ </head>
+
+
+ <body>
+  <div class="mobile_fixed_footer show_sm show_md">
+   <ul>
+    <li>
+     <a href="https://www.simplygames.com/account/sign-in?redirect=aHR0cHM6Ly93d3cuc2ltcGx5Z2FtZXMuY29tL3BzNA==" rel="nofollow">
+      Sign In
+     </a>
+    </li>
+    <li>
+     <a href="https://www.simplygames.com/account/checkout-register" rel="nofollow">
+      Checkout (
+      <span class="basket_count">
+       0
+      </span>
+      )
+     </a>
+    </li>
+   </ul>
+  </div>
+  <!-- /account -->
+
+  <!-- /header_wrapper -->
+  <div class="content_wrapper format_brand">
+   <div class="rslides_wrapper">
+    <ul class="rslides">
+     <li>
+      <a href="https://www.simplygames.com/search?keywords=Call+of+Duty%3A+Black+Ops+6&amp;utm_source=Website&amp;utm_medium=Banner+Desktop&amp;utm_campaign=Call+of+Duty%3A+Black+Ops+6&amp;utm_id=Call+of+Duty%3A+Black+Ops+6" title="PRE: Black Ops 6 ">
+       <img alt="PRE: Black Ops 6 " src="https://www.simplygames.com/uploads/banners/pre-black-ops-6-1090.jpg?v=1718958883" title="PRE: Black Ops 6 "/>
+      </a>
+     </li>
+    </ul>
+   </div>
+   <ul class="mobile_banners">
+    <li>
+     <a href="https://www.simplygames.com/search?keywords=Call+of+Duty%3A+Black+Ops+6&amp;utm_source=Website&amp;utm_medium=Banner+Mobile&amp;utm_campaign=Call+of+Duty%3A+Black+Ops+6&amp;utm_id=Call+of+Duty%3A+Black+Ops+6" title="PRE: Black Ops 6 ">
+      <img alt="PRE: Black Ops 6 " src="https://www.simplygames.com/uploads/banners/mobile/pre-black-ops-6-1090.jpg?v=1718958883" title="PRE: Black Ops 6 "/>
+     </a>
+    </li>
+   </ul>
+
+   <!-- Buttons to trigger the location detection -->
+   <button onclick="findPixelLocation('product-3')">
+    Find Sand Land Location
+   </button>
+   <button onclick="showCatAtLocation('product-3')">
+    Show Cat at Sand Land
+   </button>
+   <button onclick="findPixelLocation('product-11')">
+    Find NBA Location
+   </button>
+   <button onclick="showCatAtLocation('product-11')">
+    Show Cat at NBA
+   </button>
+   <div class="content_4">
+    <div class="text_content format" style="clear: both;">
+     <h1>
+      PlayStation 4 Games, Accessories &amp; Consoles
+     </h1>
+     <p>
+      Discover the epic PS4 gaming experience with SimplyGames' massive range of
+      <a href="https://www.simplygames.com/ps4/games" title="Top Playstation 4 Games">
+       PlayStation 4 games
+      </a>
+      ,
+      <a href="https://www.simplygames.com/ps4/consoles" title="Playstation 4 Consoles">
+       consoles
+      </a>
+      , and
+      <a href="https://www.simplygames.com/ps4/accessories" title="Playstation 4 Accessories">
+       accessories
+      </a>
+      . We've got all the latest releases, upcoming exclusives, and greatest hits to keep the PS4 thrills going! Score hot deals on must-play titles across to showcase everything your Playstation 4 can do. Gear up with extra
+      <a href="https://www.simplygames.com/ps4/accessories?filter=controllers" title="Playstation 4 Duelshock Controller">
+       DualShock 4 controllers
+      </a>
+      ,
+      <a href="https://www.simplygames.com/ps4/accessories?filter=charging" title="Playstation 4 Charging ">
+       charging docks
+      </a>
+      ,
+      <a href="https://www.simplygames.com/ps4/accessories?filter=headsets" title="Playstation 4 Headset">
+       headsets
+      </a>
+      and other essential PS4 add-ons for intense gaming sessions. Delve into the
+      <a href="https://www.simplygames.com/search?keywords=playstation+vr" title="Playstation 4 VR">
+       Playstation VR
+      </a>
+      experience with new games, hardware, and accessories!  With a regularly updated catalogue of PS4 games, bundles, hardware, and accessories,
+      <a href="https://www.simplygames.com" title="SimplyGames">
+       SimplyGames
+      </a>
+      makes it simple to expand your library and live the PS4 experience.
+     </p>
+    </div>
+    <h2 class="list_header">
+     PlayStation 4 Top Sellers
+     <span>
+      <a href="/ps4/games?filter=top-sellers" title="View All PlayStation 4 Top Sellers">
+       View All
+      </a>
+     </span>
+    </h2>
+    
+
+    <div class="product_list_holder format">
+     <div class="list_item">
+      <a href="/p/tiebreak-official-game-of-the-atp-and-wta-ps4" title="Tiebreak: Official Game of the ATP and WTA... on PS4">
+       <img alt="Tiebreak: Official Game of the ATP and WTA... " border="0" class="lazy" src="https://www.simplygames.com/uploads/products/52382/52382_sm.jpg?v=MjAyNC0wOS0wNyAxNzoxOToxOA==" title="Tiebreak: Official Game of the ATP and WTA...">
+        <div class="product_name" id="product-1">
+         Tiebreak: Official Game of the ATP and WTA...
+        </div>
+        <span>
+         £44.99
+        </span>
+       </img>
+      </a>
+      <a class="button in_stock add_to_basket" rel="13863" title="Tiebreak: Official Game of the ATP and WTA on PS4">
+       Buy Now ❯
+      </a>
+     </div>
+     <div class="list_item">
+      <a href="/p/adam-wolfe-ps4" title="Adam Wolfe... on PS4">
+       <img alt="Adam Wolfe... " border="0" class="lazy" src="https://www.simplygames.com/uploads/products/51881/51881_sm.jpg?v=MjAyNC0wOS0wNyAxNzoxOToxOA==" title="Adam Wolfe...">
+        <div class="product_name" id="product-2">
+         Adam Wolfe...
+        </div>
+        <span>
+         £24.99
+        </span>
+       </img>
+      </a>
+      <a class="button in_stock add_to_basket" rel="13362" title="Adam Wolfe on PS4">
+       Buy Now ❯
+      </a>
+     </div>
+     <div class="list_item">
+      <a href="https://www.simplygames.com/p/sand-land-ps4" title="Sand Land... on PS4">
+       <img alt="Sand Land... " border="0" class="lazy" src="https://www.simplygames.com/uploads/products/51907/51907_sm.jpg?v=MjAyNC0wOS0wNyAxNzoxOToxOA==" title="Sand Land..."/>
+       <div ,="" class="product_name" id="product-3">
+        Sand Land...
+       </div>
+       <span>
+        <span style="color: #888888; text-decoration: line-through; font-style: italic;">
+         £47.99
+        </span>
+        £39.99
+       </span>
+      </a>
+      <a class="button in_stock add_to_basket" rel="13388" title="Sand Land on PS4">
+       Buy Now ❯
+      </a>
+     </div>
+     <div class="list_item">
+      <a href="/p/the-sisters-party-of-the-year-ps4" title="The Sisters: Party of the Year... on PS4">
+       <img alt="The Sisters: Party of the Year... " border="0" class="lazy" src="https://www.simplygames.com/uploads/products/52233/52233_sm.jpg?v=MjAyNC0wOS0wOSAxNDoyMToxNg==" style="display: block;" title="The Sisters: Party of the Year..."/>
+       <div class="product_name" id="product-4">
+        The Sisters: Party of the Year...
+       </div>
+       <span>
+        £6.99
+       </span>
+      </a>
+      <a class="button in_stock add_to_basket" rel="13714" title="The Sisters: Party of the Year on PS4">
+       Buy Now ❯
+      </a>
+     </div>
+     <div class="list_item">
+      <a href="/p/persona-3-reload-ps4" title="Persona 3 Reload... on PS4">
+       <img alt="Persona 3 Reload... " border="0" class="lazy" src="https://www.simplygames.com/uploads/products/51260/51260_sm.jpg?v=MjAyNC0wOS0wOSAxNDoyMToxNQ==" style="display: block;" title="Persona 3 Reload..."/>
+       <div class="product_name" id="product-5">
+        Persona 3 Reload...
+       </div>
+       <span>
+        £34.99
+       </span>
+      </a>
+      <a class="button in_stock add_to_basket" rel="12741" title="Persona 3 Reload on PS4">
+       Buy Now ❯
+      </a>
+     </div>
+     <div class="list_item">
+      <a href="/p/prince-of-persia-the-lost-crown-ps4" title="Prince of Persia: The Lost Crown... on PS4">
+       <img alt="Prince of Persia: The Lost Crown... " border="0" class="lazy" src="https://www.simplygames.com/uploads/products/51182/51182_sm.jpg?v=MjAyNC0wOS0wOSAxNDoyMToxNQ==" style="display: block;" title="Prince of Persia: The Lost Crown..."/>
+       <div class="product_name" id="product-6">
+        Prince of Persia: The Lost Crown...
+       </div>
+       <span>
+        <span style="color: #888888; text-decoration: line-through; font-style: italic;">
+         £37.99
+        </span>
+        £34.99
+       </span>
+      </a>
+      <a class="button in_stock add_to_basket" rel="12663" title="Prince of Persia: The Lost Crown on PS4">
+       Buy Now ❯
+      </a>
+     </div>
+     <div class="list_item">
+      <a href="/p/persona-5-tactica-ps4" title="Persona 5 Tactica... on PS4">
+       <img alt="Persona 5 Tactica... " border="0" class="lazy" src="https://www.simplygames.com/uploads/products/50721/50721_sm.jpg?v=MjAyNC0wOS0wOSAxNDoyMToxNQ==" style="display: block;" title="Persona 5 Tactica..."/>
+       <div class="product_name" id="product-7">
+        Persona 5 Tactica...
+       </div>
+       <span>
+        <span style="color: #888888; text-decoration: line-through; font-style: italic;">
+         £54.99
+        </span>
+        £22.99
+       </span>
+      </a>
+      <a class="button in_stock add_to_basket" rel="12202" title="Persona 5 Tactica on PS4">
+       Buy Now ❯
+      </a>
+     </div>
+     <div class="list_item">
+      <a href="/p/star-ocean-the-second-story-r-ps4" title="Star Ocean: The Second Story R... on PS4">
+       <img alt="Star Ocean: The Second Story R... " border="0" class="lazy" src="https://www.simplygames.com/uploads/products/51176/51176_sm.jpg?v=MjAyNC0wOS0wOSAxNDoyMToxNQ==" style="display: block;" title="Star Ocean: The Second Story R..."/>
+       <div class="product_name" id="product-8">
+        Star Ocean: The Second Story R...
+       </div>
+       <span>
+        £44.99
+       </span>
+      </a>
+      <a class="button in_stock add_to_basket" rel="12657" title="Star Ocean: The Second Story R on PS4">
+       Buy Now ❯
+      </a>
+     </div>
+     <div class="list_item">
+      <a href="/p/hot-wheels-unleashed-2---turbocharged-ps4" title="Hot Wheels Unleashed™ 2 – Turbocharged... on PS4">
+       <img alt="Hot Wheels Unleashed™ 2 – Turbocharged... " border="0" class="lazy" src="https://www.simplygames.com/uploads/products/50540/50540_sm.jpg?v=MjAyNC0wOS0wOSAxNDoyMToxNA==" style="display: block;" title="Hot Wheels Unleashed™ 2 – Turbocharged..."/>
+       <div class="product_name" id="product-9">
+        Hot Wheels Unleashed™ 2 – Turbocharged...
+       </div>
+       <span>
+        <span style="color: #888888; text-decoration: line-through; font-style: italic;">
+         £34.99
+        </span>
+        £24.99
+       </span>
+      </a>
+      <a class="button in_stock add_to_basket" rel="12021" title="Hot Wheels Unleashed™ 2 – Turbocharged on PS4">
+       Buy Now ❯
+      </a>
+     </div>
+     <div class="list_item">
+      <a href="/p/nhl-24-ps4" title="NHL 24... on PS4">
+       <img alt="NHL 24... " border="0" class="lazy" src="https://www.simplygames.com/uploads/products/51103/51103_sm.jpg?v=MjAyNC0wOS0wOSAxNDoyMToxNQ==" style="display: block;" title="NHL 24..."/>
+       <div class="product_name" id="product-10">
+        NHL 24...
+       </div>
+       <span>
+        £29.99
+       </span>
+      </a>
+      <a class="button in_stock add_to_basket" rel="12584" title="NHL 24 on PS4">
+       Buy Now ❯
+      </a>
+     </div>
+     <div class="list_item">
+      <a href="/p/nba-2k24-ps4" title="NBA 2K24 Kobe Bryant Edition... on PS4">
+       <img alt="NBA 2K24 Kobe Bryant Edition... " border="0" class="lazy" src="https://www.simplygames.com/uploads/products/50773/50773_sm.jpg?v=MjAyNC0wOS0wOSAxNDoyMToxNQ==" style="display: block;" title="NBA 2K24 Kobe Bryant Edition..."/>
+       <div ,="" class="product_name" id="product-11">
+        NBA 2K24 Kobe Bryant Edition...
+       </div>
+       <span>
+        £49.99
+       </span>
+      </a>
+      <a class="button in_stock add_to_basket" rel="12254" title="NBA 2K24 Kobe Bryant Edition on PS4">
+       Buy Now ❯
+      </a>
+     </div>
+     <div class="list_item">
+      <a href="/p/agatha-christie---hercule-poirot-the-london-case-ps4" title="Agatha Christie - Hercule Poirot: The London Case... on PS4">
+       <img alt="Agatha Christie - Hercule Poirot: The London Case... " border="0" class="lazy" src="https://www.simplygames.com/uploads/products/50766/50766_sm.jpg?v=MjAyNC0wOS0wOSAxNDoyMToxNQ==" style="display: block;" title="Agatha Christie - Hercule Poirot: The London Case..."/>
+       <div class="product_name" id="product-12">
+        Agatha Christie - Hercule Poirot: The London Case...
+       </div>
+       <span>
+        £34.99
+       </span>
+      </a>
+      <a class="button in_stock add_to_basket" rel="12247" title="Agatha Christie - Hercule Poirot: The London Case on PS4">
+       Buy Now ❯
+      </a>
+     </div>
+     <div class="list_item">
+      <a href="/p/armored-core-vi-fires-of-rubicon-launch-edition-ps4" title="Armored Core VI: Fires of Rubicon Launch Edition... on PS4">
+       <img alt="Armored Core VI: Fires of Rubicon Launch Edition... " border="0" class="lazy" src="https://www.simplygames.com/uploads/products/50812/50812_sm.jpg?v=MjAyNC0wOS0wOSAxNDoyMToxNQ==" style="display: block;" title="Armored Core VI: Fires of Rubicon Launch Edition..."/>
+       <div class="product_name" id="product-13">
+        Armored Core VI: Fires of Rubicon Launch Edition...
+       </div>
+       <span>
+        £34.99
+       </span>
+      </a>
+      <a class="button in_stock add_to_basket" rel="12293" title="Armored Core VI: Fires of Rubicon Launch Edition on PS4">
+       Buy Now ❯
+      </a>
+     </div>
+     <div class="list_item">
+      <a href="/p/sonic-origins-plus-ps4" title="Sonic Origins Plus... on PS4">
+       <img alt="Sonic Origins Plus... " border="0" class="lazy" src="https://www.simplygames.com/uploads/products/50016/50016_sm.jpg?v=MjAyNC0wOS0wOSAxNDoyMToxNA==" style="display: block;" title="Sonic Origins Plus..."/>
+       <div class="product_name" id="product-14">
+        Sonic Origins Plus...
+       </div>
+       <span>
+        <span style="color: #888888; text-decoration: line-through; font-style: italic;">
+         £34.99
+        </span>
+        £24.99
+       </span>
+      </a>
+      <a class="button in_stock add_to_basket" rel="11497" title="Sonic Origins Plus on PS4">
+       Buy Now ❯
+      </a>
+     </div>
+     <div class="list_item">
+      <a href="/p/crash-team-rumble---deluxe-edition-ps4" title="Crash Team Rumble - Deluxe Edition... on PS4">
+       <img alt="Crash Team Rumble - Deluxe Edition... " border="0" class="lazy" src="https://www.simplygames.com/uploads/products/50144/50144_sm.jpg?v=MjAyNC0wOS0wOSAxNDoyMToxNA==" style="display: block;" title="Crash Team Rumble - Deluxe Edition..."/>
+       <div class="product_name" id="product-15">
+        Crash Team Rumble - Deluxe Edition...
+       </div>
+       <span>
+        £29.99
+       </span>
+      </a>
+      <a class="button in_stock add_to_basket" rel="11625" title="Crash Team Rumble - Deluxe Edition on PS4">
+       Buy Now ❯
+      </a>
+     </div>
+     <div class="list_item">
+      <a href="/p/the-lord-of-the-rings-gollum-ps4" title="The Lord of the Rings: Gollum... on PS4">
+       <img alt="The Lord of the Rings: Gollum... " border="0" class="lazy" src="https://www.simplygames.com/uploads/products/47668/47668_sm.jpg?v=MjAyNC0wOS0wOSAxNDoyMToxMQ==" style="display: block;" title="The Lord of the Rings: Gollum..."/>
+       <div class="product_name" id="product-16">
+        The Lord of the Rings: Gollum...
+       </div>
+       <span>
+        £24.99
+       </span>
+      </a>
+      <a class="button in_stock add_to_basket" rel="9149" title="The Lord of the Rings: Gollum on PS4">
+       Buy Now ❯
+      </a>
+     </div>
+     <div class="list_item">
+      <a href="/p/minecraft-legends---deluxe-edition-ps4" title="Minecraft Legends - Deluxe Edition... on PS4">
+       <img alt="Minecraft Legends - Deluxe Edition... " border="0" class="lazy" src="https://www.simplygames.com/uploads/products/49855/49855_sm.jpg?v=MjAyNC0wOS0wOSAxNDoyMToxNA==" style="display: block;" title="Minecraft Legends - Deluxe Edition..."/>
+       <div class="product_name" id="product-17">
+        Minecraft Legends - Deluxe Edition...
+       </div>
+       <span>
+        £29.99
+       </span>
+      </a>
+      <a class="button in_stock add_to_basket" rel="11336" title="Minecraft Legends - Deluxe Edition on PS4">
+       Buy Now ❯
+      </a>
+     </div>
+     <div class="list_item">
+      <a href="/p/resident-evil-4-remake-ps4" title="Resident Evil 4 Remake... on PS4">
+       <img alt="Resident Evil 4 Remake... " border="0" class="lazy" src="https://www.simplygames.com/uploads/products/48911/48911_sm.jpg?v=MjAyNC0wOS0wOSAxNDoyMToxMw==" style="display: block;" title="Resident Evil 4 Remake..."/>
+       <div class="product_name" id="product-18">
+        Resident Evil 4 Remake...
+       </div>
+       <span>
+        <span style="color: #888888; text-decoration: line-through; font-style: italic;">
+         £49.99
+        </span>
+        £44.99
+       </span>
+      </a>
+      <a class="button in_stock add_to_basket" rel="10392" title="Resident Evil 4 Remake on PS4">
+       Buy Now ❯
+      </a>
+     </div>
+     <div class="list_item">
+      <a href="/p/wwe-2k23-ps4" title="WWE 2K23... on PS4">
+       <img alt="WWE 2K23... " border="0" class="lazy" src="https://www.simplygames.com/uploads/products/49873/49873_sm.jpg?v=MjAyNC0wOS0wOSAxNDoyMToxNA==" style="display: block;" title="WWE 2K23..."/>
+       <div class="product_name" id="product-19">
+        WWE 2K23...
+       </div>
+       <span>
+        £42.99
+       </span>
+      </a>
+      <a class="button in_stock add_to_basket" rel="11354" title="WWE 2K23 on PS4">
+       Buy Now ❯
+      </a>
+     </div>
+     <div class="list_item">
+      <a href="/p/blood-bowl-3--ps4" title="Blood Bowl 3... on PS4">
+       <img alt="Blood Bowl 3... " border="0" class="lazy" src="https://www.simplygames.com/uploads/products/44639/44639_sm.jpg?v=MjAyNC0wOS0wOSAxNDoyMTowOA==" style="display: block;" title="Blood Bowl 3..."/>
+       <div class="product_name" id="product-20">
+        Blood Bowl 3...
+       </div>
+       <span>
+        <span style="color: #888888; text-decoration: line-through; font-style: italic;">
+         £19.99
+        </span>
+        £14.99
+       </span>
+      </a>
+      <a class="button in_stock add_to_basket" rel="6120" title="Blood Bowl 3  on PS4">
+       Buy Now ❯
+      </a>
+     </div>
+     <div class="list_item">
+      <a href="/p/neptunia-sisters-vs-sisters---calendar-edition-ps4" title="Neptunia: Sisters VS Sisters - Calendar Edition... on PS4">
+       <img alt="Neptunia: Sisters VS Sisters - Calendar Edition... " border="0" class="lazy" src="https://www.simplygames.com/uploads/products/49678/49678_sm.jpg?v=MjAyNC0wOS0wOSAxNDoyMToxNA==" style="display: block;" title="Neptunia: Sisters VS Sisters - Calendar Edition..."/>
+       <div class="product_name" id="product-21">
+        Neptunia: Sisters VS Sisters - Calendar Edition...
+       </div>
+       <span>
+        £44.99
+       </span>
+      </a>
+      <a class="button in_stock add_to_basket" rel="11159" title="Neptunia: Sisters VS Sisters - Calendar Edition on PS4">
+       Buy Now ❯
+      </a>
+     </div>
+     <div class="list_item">
+      <a href="/p/marsupilami-hoobadventure---tropical-edition-ps4" title="Marsupilami: Hoobadventure! - Tropical Edition... on PS4">
+       <img alt="Marsupilami: Hoobadventure! - Tropical Edition... " border="0" class="lazy" src="https://www.simplygames.com/uploads/products/49837/49837_sm.jpg?v=MjAyNC0wOS0wOSAxNDoyMToxNA==" style="display: block;" title="Marsupilami: Hoobadventure! - Tropical Edition..."/>
+       <div class="product_name" id="product-22">
+        Marsupilami: Hoobadventure! - Tropical Edition...
+       </div>
+       <span>
+        <span style="color: #888888; text-decoration: line-through; font-style: italic;">
+         £24.99
+        </span>
+        £19.99
+       </span>
+      </a>
+      <a class="button in_stock add_to_basket" rel="11318" title="Marsupilami: Hoobadventure! - Tropical Edition on PS4">
+       Buy Now ❯
+      </a>
+     </div>
+     <div class="list_item">
+      <a href="/p/one-piece-odyssey-ps4" title="One Piece Odyssey... on PS4">
+       <img alt="One Piece Odyssey... " border="0" class="lazy" src="https://www.simplygames.com/uploads/products/49040/49040_sm.jpg?v=MjAyNC0wOS0wOSAxNDoyMToxMw==" style="display: block;" title="One Piece Odyssey..."/>
+       <div class="product_name" id="product-23">
+        One Piece Odyssey...
+       </div>
+       <span>
+        £39.99
+       </span>
+      </a>
+      <a class="button in_stock add_to_basket" rel="10521" title="One Piece Odyssey on PS4">
+       Buy Now ❯
+      </a>
+     </div>
+     <div class="list_item">
+      <a href="/p/new-joe--mac-caveman-ninja---t-rex-edition-ps4" title="New Joe &amp; Mac: Caveman Ninja - T-Rex Edition... on PS4">
+       <img alt="New Joe &amp; Mac: Caveman Ninja - T-Rex Edition... " border="0" class="lazy" src="https://www.simplygames.com/uploads/products/50630/50630_sm.jpg?v=MjAyNC0wOS0wOSAxNDoyMToxNQ==" style="display: block;" title="New Joe &amp; Mac: Caveman Ninja - T-Rex Edition..."/>
+       <div class="product_name" id="product-24">
+        New Joe &amp; Mac: Caveman Ninja - T-Rex Edition...
+       </div>
+       <span>
+        <span style="color: #888888; text-decoration: line-through; font-style: italic;">
+         £24.99
+        </span>
+        £19.99
+       </span>
+      </a>
+      <a class="button in_stock add_to_basket" rel="12111" title="New Joe &amp; Mac: Caveman Ninja - T-Rex Edition on PS4">
+       Buy Now ❯
+      </a>
+     </div>
+     <div class="list_item">
+      <a href="/p/crisis-core--final-fantasy-vii-reunion-ps4" title="Crisis Core : Final Fantasy VII Reunion... on PS4">
+       <img alt="Crisis Core : Final Fantasy VII Reunion... " border="0" class="lazy" src="https://www.simplygames.com/uploads/products/48724/48724_sm.jpg?v=MjAyNC0wOS0wOSAxNDoyMToxMw==" style="display: block;" title="Crisis Core : Final Fantasy VII Reunion..."/>
+       <div class="product_name" id="product-25">
+        Crisis Core : Final Fantasy VII Reunion...
+       </div>
+       <span>
+        £34.99
+       </span>
+      </a>
+      <a class="button in_stock add_to_basket" rel="10205" title="Crisis Core : Final Fantasy VII Reunion on PS4">
+       Buy Now ❯
+      </a>
+     </div>
+     <div class="list_item">
+      <a href="/p/the-house-of-the-dead---limidead-edition-ps4" title="The House of the Dead - Limidead Edition... on PS4">
+       <img alt="The House of the Dead - Limidead Edition... " border="0" class="lazy" src="https://www.simplygames.com/uploads/products/48710/48710_sm.jpg?v=MjAyNC0wOS0wOSAxNDoyMToxMw==" style="display: block;" title="The House of the Dead - Limidead Edition..."/>
+       <div class="product_name" id="product-26">
+        The House of the Dead - Limidead Edition...
+       </div>
+       <span>
+        <span style="color: #888888; text-decoration: line-through; font-style: italic;">
+         £24.99
+        </span>
+        £19.99
+       </span>
+      </a>
+      <a class="button in_stock add_to_basket" rel="10191" title="The House of the Dead - Limidead Edition on PS4">
+       Buy Now ❯
+      </a>
+     </div>
+     <div class="list_item">
+      <a href="/p/gungrave-gore---day-one-edition-ps4" title="Gungrave G.O.R.E - Day One Edition... on PS4">
+       <img alt="Gungrave G.O.R.E - Day One Edition... " border="0" class="lazy" src="https://www.simplygames.com/uploads/products/48780/48780_sm.jpg?v=MjAyNC0wOS0wOSAxNDoyMToxMw==" style="display: block;" title="Gungrave G.O.R.E - Day One Edition..."/>
+       <div class="product_name" id="product-27">
+        Gungrave G.O.R.E - Day One Edition...
+       </div>
+       <span>
+        £36.95
+       </span>
+      </a>
+      <a class="button in_stock add_to_basket" rel="10261" title="Gungrave G.O.R.E - Day One Edition on PS4">
+       Buy Now ❯
+      </a>
+     </div>
+     <div class="list_item">
+      <a href="/p/doctor-who-duo-bundle-ps4" title="Doctor Who: Duo Bundle... on PS4">
+       <img alt="Doctor Who: Duo Bundle... " border="0" class="lazy" src="https://www.simplygames.com/uploads/products/48554/48554_sm.jpg?v=MjAyNC0wOS0wOSAxNDoyMToxMg==" style="display: block;" title="Doctor Who: Duo Bundle..."/>
+       <div class="product_name" id="product-28">
+        Doctor Who: Duo Bundle...
+       </div>
+       <span>
+        <span style="color: #888888; text-decoration: line-through; font-style: italic;">
+         £24.99
+        </span>
+        £11.99
+       </span>
+      </a>
+      <a class="button in_stock add_to_basket" rel="10035" title="Doctor Who: Duo Bundle on PS4">
+       Buy Now ❯
+      </a>
+     </div>
+     <div class="list_item">
+      <a href="/p/sonic-frontiers-ps4" title="Sonic Frontiers... on PS4">
+       <img alt="Sonic Frontiers... " border="0" class="lazy" src="https://www.simplygames.com/uploads/products/48742/48742_sm.jpg?v=MjAyNC0wOS0wOSAxNDoyMToxMw==" style="display: block;" title="Sonic Frontiers..."/>
+       <div class="product_name" id="product-29">
+        Sonic Frontiers...
+       </div>
+       <span>
+        <span style="color: #888888; text-decoration: line-through; font-style: italic;">
+         £39.99
+        </span>
+        £19.99
+       </span>
+      </a>
+      <a class="button in_stock add_to_basket" rel="10223" title="Sonic Frontiers on PS4">
+       Buy Now ❯
+      </a>
+     </div>
+     <div class="list_item">
+      <a href="/p/star-ocean-the-divine-force-ps4" title="Star Ocean: The Divine Force... on PS4">
+       <img alt="Star Ocean: The Divine Force... " border="0" class="lazy" src="https://www.simplygames.com/uploads/products/48721/48721_sm.jpg?v=MjAyNC0wOS0wOSAxNDoyMToxMw==" style="display: block;" title="Star Ocean: The Divine Force..."/>
+       <div class="product_name" id="product-30">
+        Star Ocean: The Divine Force...
+       </div>
+       <span>
+        £29.99
+       </span>
+      </a>
+      <a class="button in_stock add_to_basket" rel="10202" title="Star Ocean: The Divine Force on PS4">
+       Buy Now ❯
+      </a>
+     </div>
+     <div class="list_item">
+      <a href="/p/session-skate-sim-ps4" title="Session: Skate Sim... on PS4">
+       <img alt="Session: Skate Sim... " border="0" class="lazy" src="https://www.simplygames.com/uploads/products/47724/47724_sm.jpg?v=MjAyNC0wOS0wOSAxNDoyMToxMQ==" style="display: block;" title="Session: Skate Sim..."/>
+       <div class="product_name" id="product-31">
+        Session: Skate Sim...
+       </div>
+       <span>
+        £19.99
+       </span>
+      </a>
+      <a class="button in_stock add_to_basket" rel="9205" title="Session: Skate Sim on PS4">
+       Buy Now ❯
+      </a>
+     </div>
+     <div class="list_item">
+      <a href="/p/lego-brawls-ps4" title="LEGO Brawls... on PS4">
+       <img alt="LEGO Brawls... " border="0" class="lazy" src="https://www.simplygames.com/uploads/products/45633/45633_sm.jpg?v=MjAyNC0wOS0wOSAxNDoyMTowOQ==" style="display: block;" title="LEGO Brawls..."/>
+       <div class="product_name" id="product-32">
+        LEGO Brawls...
+       </div>
+       <span>
+        £24.99
+       </span>
+      </a>
+      <a class="button in_stock add_to_basket" rel="7114" title="LEGO Brawls on PS4">
+       Buy Now ❯
+      </a>
+     </div>
+     <div class="list_item">
+      <a href="/p/soul-hackers-2-ps4" title="Soul Hackers 2... on PS4">
+       <img alt="Soul Hackers 2... " border="0" class="lazy" src="https://www.simplygames.com/uploads/products/47533/47533_sm.jpg?v=MjAyNC0wOS0wOSAxNDoyMToxMQ==" style="display: block;" title="Soul Hackers 2..."/>
+       <div class="product_name" id="product-33">
+        Soul Hackers 2...
+       </div>
+       <span>
+        £42.99
+       </span>
+      </a>
+      <a class="button in_stock add_to_basket" rel="9014" title="Soul Hackers 2 on PS4">
+       Buy Now ❯
+      </a>
+     </div>
+     <div class="list_item">
+      <a href="/p/saints-row-notorious-edition-ps4" title="Saints Row Notorious Edition... on PS4">
+       <img alt="Saints Row Notorious Edition... " border="0" class="lazy" src="https://www.simplygames.com/uploads/products/47538/47538_sm.jpg?v=MjAyNC0wOS0wOSAxNDoyMToxMQ==" style="display: block;" title="Saints Row Notorious Edition..."/>
+       <div class="product_name" id="product-34">
+        Saints Row Notorious Edition...
+       </div>
+       <span>
+        £39.99
+       </span>
+      </a>
+      <a class="button in_stock add_to_basket" rel="9019" title="Saints Row Notorious Edition on PS4">
+       Buy Now ❯
+      </a>
+     </div>
+     <div class="list_item">
+      <a href="/p/saints-row-day-one-edition-ps4" title="Saints Row Day One Edition... on PS4">
+       <img alt="Saints Row Day One Edition... " border="0" class="lazy" src="https://www.simplygames.com/uploads/products/45162/45162_sm.jpg?v=MjAyNC0wOS0wOSAxNDoyMTowOQ==" style="display: block;" title="Saints Row Day One Edition..."/>
+       <div class="product_name" id="product-35">
+        Saints Row Day One Edition...
+       </div>
+       <span>
+        <span style="color: #888888; text-decoration: line-through; font-style: italic;">
+         £24.99
+        </span>
+        £9.99
+       </span>
+      </a>
+      <a class="button in_stock add_to_basket" rel="6643" title="Saints Row Day One Edition on PS4">
+       Buy Now ❯
+      </a>
+     </div>
+     <div class="list_item">
+      <a href="/p/two-point-campus---enrolment-edition-ps4" title="Two Point Campus - Enrolment Edition... on PS4">
+       <img alt="Two Point Campus - Enrolment Edition... " border="0" class="lazy" src="https://www.simplygames.com/uploads/products/47329/47329_sm.jpg?v=MjAyNC0wOS0wOSAxNDoyMToxMQ==" style="display: block;" title="Two Point Campus - Enrolment Edition..."/>
+       <div class="product_name" id="product-36">
+        Two Point Campus - Enrolment Edition...
+       </div>
+       <span>
+        <span style="color: #888888; text-decoration: line-through; font-style: italic;">
+         £29.99
+        </span>
+        £9.99
+       </span>
+      </a>
+      <a class="button in_stock add_to_basket" rel="8810" title="Two Point Campus - Enrolment Edition on PS4">
+       Buy Now ❯
+      </a>
+     </div>
+     <div class="list_item">
+      <a href="/p/under-night-in-birth-exelatest-ps4" title="Under Night In-Birth Exe:Late(ST)... on PS4">
+       <img alt="Under Night In-Birth Exe:Late(ST)... " border="0" class="lazy" src="https://www.simplygames.com/uploads/products/50139/50139_sm.jpg?v=MjAyNC0wOS0wOSAxNDoyMToxNA==" style="display: block;" title="Under Night In-Birth Exe:Late(ST)..."/>
+       <div class="product_name" id="product-37">
+        Under Night In-Birth Exe:Late(ST)...
+       </div>
+       <span>
+        £19.99
+       </span>
+      </a>
+      <a class="button in_stock add_to_basket" rel="11620" title="Under Night In-Birth Exe:Late(ST) on PS4">
+       Buy Now ❯
+      </a>
+     </div>
+     <div class="list_item">
+      <a href="/p/klonoa-phantasy-reverie-series-ps4" title="Klonoa Phantasy Reverie Series... on PS4">
+       <img alt="Klonoa Phantasy Reverie Series... " border="0" class="lazy" src="https://www.simplygames.com/uploads/products/46845/46845_sm.jpg?v=MjAyNC0wOS0wOSAxNDoyMToxMA==" style="display: block;" title="Klonoa Phantasy Reverie Series..."/>
+       <div class="product_name" id="product-38">
+        Klonoa Phantasy Reverie Series...
+       </div>
+       <span>
+        £24.99
+       </span>
+      </a>
+      <a class="button in_stock add_to_basket" rel="8326" title="Klonoa Phantasy Reverie Series on PS4">
+       Buy Now ❯
+      </a>
+     </div>
+     <div class="list_item">
+      <a href="/p/dnf-duel-ps4" title="DNF Duel... on PS4">
+       <img alt="DNF Duel... " border="0" class="lazy" src="https://www.simplygames.com/uploads/products/46319/46319_sm.jpg?v=MjAyNC0wOS0wOSAxNDoyMToxMA==" style="display: block;" title="DNF Duel..."/>
+       <div class="product_name" id="product-39">
+        DNF Duel...
+       </div>
+       <span>
+        £39.99
+       </span>
+      </a>
+      <a class="button in_stock add_to_basket" rel="7800" title="DNF Duel on PS4">
+       Buy Now ❯
+      </a>
+     </div>
+     <div class="list_item">
+      <a href="/p/leisure-suit-larry-wet-dreams-dry-twice-ps4" title="Leisure Suit Larry Wet Dreams Dry Twice... on PS4">
+       <img alt="Leisure Suit Larry Wet Dreams Dry Twice... " border="0" class="lazy" src="https://www.simplygames.com/uploads/products/46560/46560_sm.jpg?v=MjAyNC0wOS0wOSAxNDoyMToxMA==" style="display: block;" title="Leisure Suit Larry Wet Dreams Dry Twice..."/>
+       <div class="product_name" id="product-40">
+        Leisure Suit Larry Wet Dreams Dry Twice...
+       </div>
+       <span>
+        £19.99
+       </span>
+      </a>
+      <a class="button in_stock add_to_basket" rel="8041" title="Leisure Suit Larry Wet Dreams Dry Twice on PS4">
+       Buy Now ❯
+      </a>
+     </div>
+     <div class="list_item">
+      <a href="/p/disgaea-4-complete-ps4" title="Disgaea 4 Complete+... on PS4">
+       <img alt="Disgaea 4 Complete+... " border="0" class="lazy" src="https://www.simplygames.com/uploads/products/46556/46556_sm.jpg?v=MjAyNC0wOS0wOSAxNDoyMToxMA==" style="display: block;" title="Disgaea 4 Complete+..."/>
+       <div class="product_name" id="product-41">
+        Disgaea 4 Complete+...
+       </div>
+       <span>
+        £24.99
+       </span>
+      </a>
+      <a class="button in_stock add_to_basket" rel="8037" title="Disgaea 4 Complete+ on PS4">
+       Buy Now ❯
+      </a>
+     </div>
+     <div class="list_item">
+      <a href="/p/tour-de-france-2022-ps4" title="Tour De France 2022... on PS4">
+       <img alt="Tour De France 2022... " border="0" class="lazy" src="https://www.simplygames.com/uploads/products/50644/50644_sm.jpg?v=MjAyNC0wOS0wOSAxNDoyMToxNQ==" style="display: block;" title="Tour De France 2022..."/>
+       <div class="product_name" id="product-42">
+        Tour De France 2022...
+       </div>
+       <span>
+        <span style="color: #888888; text-decoration: line-through; font-style: italic;">
+         £24.99
+        </span>
+        £12.99
+       </span>
+      </a>
+      <a class="button in_stock add_to_basket" rel="12125" title="Tour De France 2022 on PS4">
+       Buy Now ❯
+      </a>
+     </div>
+     <div class="list_item">
+      <a href="/p/mortal-shell-enhanced-edition---game-of-the-year-ps4" title="Mortal Shell: Enhanced Edition - Game of the Year... on PS4">
+       <img alt="Mortal Shell: Enhanced Edition - Game of the Year... " border="0" class="lazy" src="https://www.simplygames.com/uploads/products/46600/46600_sm.jpg?v=MjAyNC0wOS0wOSAxNDoyMToxMA==" style="display: block;" title="Mortal Shell: Enhanced Edition - Game of the Year..."/>
+       <div class="product_name" id="product-43">
+        Mortal Shell: Enhanced Edition - Game of the Year...
+       </div>
+       <span>
+        £29.99
+       </span>
+      </a>
+      <a class="button in_stock add_to_basket" rel="8081" title="Mortal Shell: Enhanced Edition - Game of the Year on PS4">
+       Buy Now ❯
+      </a>
+     </div>
+     <div class="list_item">
+      <a href="/p/lego-star-wars-the-skywalker-saga-ps4" title="LEGO Star Wars: The Skywalker Saga... on PS4">
+       <img alt="LEGO Star Wars: The Skywalker Saga... " border="0" class="lazy" src="https://www.simplygames.com/uploads/products/43192/43192_sm.jpg?v=MjAyNC0wOS0wOSAxNDoyMTowNw==" style="display: block;" title="LEGO Star Wars: The Skywalker Saga..."/>
+       <div class="product_name" id="product-44">
+        LEGO Star Wars: The Skywalker Saga...
+       </div>
+       <span>
+        <span style="color: #888888; text-decoration: line-through; font-style: italic;">
+         £29.99
+        </span>
+        £11.99
+       </span>
+      </a>
+      <a class="button in_stock add_to_basket" rel="4673" title="LEGO Star Wars: The Skywalker Saga on PS4">
+       Buy Now ❯
+      </a>
+     </div>
+     <div class="list_item">
+      <a href="/p/reverie-knights-tactics-ps4" title="Reverie Knights Tactics... on PS4">
+       <img alt="Reverie Knights Tactics... " border="0" class="lazy" src="https://www.simplygames.com/uploads/products/46607/46607_sm.jpg?v=MjAyNC0wOS0wOSAxNDoyMToxMA==" style="display: block;" title="Reverie Knights Tactics..."/>
+       <div class="product_name" id="product-45">
+        Reverie Knights Tactics...
+       </div>
+       <span>
+        £19.99
+       </span>
+      </a>
+      <a class="button in_stock add_to_basket" rel="8088" title="Reverie Knights Tactics on PS4">
+       Buy Now ❯
+      </a>
+     </div>
+     <div class="list_item">
+      <a href="/p/horizon-2-forbidden-west-ps4" title="Horizon Forbidden West... on PS4">
+       <img alt="Horizon Forbidden West... " border="0" class="lazy" src="https://www.simplygames.com/uploads/products/45172/45172_sm.jpg?v=MjAyNC0wOS0wOSAxNDoyMTowOQ==" style="display: block;" title="Horizon Forbidden West..."/>
+       <div class="product_name" id="product-46">
+        Horizon Forbidden West...
+       </div>
+       <span>
+        <span style="color: #888888; text-decoration: line-through; font-style: italic;">
+         £39.99
+        </span>
+        £24.99
+       </span>
+      </a>
+      <a class="button in_stock add_to_basket" rel="6653" title="Horizon Forbidden West on PS4">
+       Buy Now ❯
+      </a>
+     </div>
+     <div class="list_item">
+      <a href="/p/tom-clancys-rainbow-six-extraction-deluxe-edition-ps4" title="Tom Clancy’s Rainbow Six® Extraction Deluxe Edition + Bon... on PS4">
+       <img alt="Tom Clancy’s Rainbow Six® Extraction Deluxe Edition + Bon... " border="0" class="lazy" src="https://www.simplygames.com/uploads/products/44952/44952_sm.jpg?v=MjAyNC0wOS0wOSAxNDoyMTowOA==" style="display: block;" title="Tom Clancy’s Rainbow Six® Extraction Deluxe Edition + Bon..."/>
+       <div class="product_name" id="product-47">
+        Tom Clancy’s Rainbow Six® Extraction Deluxe Edition + Bon...
+       </div>
+       <span>
+        £24.99
+       </span>
+      </a>
+      <a class="button in_stock add_to_basket" rel="6433" title="Tom Clancy’s Rainbow Six® Extraction Deluxe Edition + Bonus on PS4">
+       Buy Now ❯
+      </a>
+     </div>
+     <div class="list_item">
+      <a href="/p/among-us---imposter-edition-ps4" title="Among Us - Imposter Edition... on PS4">
+       <img alt="Among Us - Imposter Edition... " border="0" class="lazy" src="https://www.simplygames.com/uploads/products/48916/48916_sm.jpg?v=MjAyNC0wOS0wOSAxNDoyMToxMw==" style="display: block;" title="Among Us - Imposter Edition..."/>
+       <div class="product_name" id="product-48">
+        Among Us - Imposter Edition...
+       </div>
+       <span>
+        <span style="color: #888888; text-decoration: line-through; font-style: italic;">
+         £39.99
+        </span>
+        £29.99
+       </span>
+      </a>
+      <a class="button in_stock add_to_basket" rel="10397" title="Among Us - Imposter Edition on PS4">
+       Buy Now ❯
+      </a>
+     </div>
+     <div class="list_item">
+      <a href="/p/among-us---ejected-edition-ps4" title="Among Us - Ejected Edition... on PS4">
+       <img alt="Among Us - Ejected Edition... " border="0" class="lazy" src="https://www.simplygames.com/uploads/products/48914/48914_sm.jpg?v=MjAyNC0wOS0wOSAxNDoyMToxMw==" style="display: block;" title="Among Us - Ejected Edition..."/>
+       <div class="product_name" id="product-49">
+        Among Us - Ejected Edition...
+       </div>
+       <span>
+        <span style="color: #888888; text-decoration: line-through; font-style: italic;">
+         £59.99
+        </span>
+        £32.99
+       </span>
+      </a>
+      <a class="button in_stock add_to_basket" rel="10395" title="Among Us - Ejected Edition on PS4">
+       Buy Now ❯
+      </a>
+     </div>
+     <div class="list_item">
+      <a href="/p/headphone-bundle-nerf-legends-ps4" title="Headphone Bundle: Nerf Legends... on PS4">
+       <img alt="Headphone Bundle: Nerf Legends... " border="0" class="lazy" src="https://www.simplygames.com/uploads/products/51213/51213_sm.jpg?v=MjAyNC0wOS0wOSAxNDoyMToxNQ==" style="display: block;" title="Headphone Bundle: Nerf Legends..."/>
+       <div class="product_name" id="product-50">
+        Headphone Bundle: Nerf Legends...
+       </div>
+       <span>
+        £19.99
+       </span>
+      </a>
+      <a class="button in_stock add_to_basket" rel="12694" title="Headphone Bundle: Nerf Legends on PS4">
+       Buy Now ❯
+      </a>
+     </div>
+     <div class="list_item">
+      <a href="/p/nerf-legends-ps4" title="Nerf Legends... on PS4">
+       <img alt="Nerf Legends... " border="0" class="lazy" src="https://www.simplygames.com/uploads/products/45157/45157_sm.jpg?v=MjAyNC0wOS0wOSAxNDoyMTowOQ==" style="display: block;" title="Nerf Legends..."/>
+       <div class="product_name" id="product-51">
+        Nerf Legends...
+       </div>
+       <span>
+        <span style="color: #888888; text-decoration: line-through; font-style: italic;">
+         £19.99
+        </span>
+        £9.99
+       </span>
+      </a>
+      <a class="button in_stock add_to_basket" rel="6638" title="Nerf Legends on PS4">
+       Buy Now ❯
+      </a>
+     </div>
+     <div class="list_item">
+      <a href="/p/just-dance-2022-ps4" title="Just Dance 2022... on PS4">
+       <img alt="Just Dance 2022... " border="0" class="lazy" src="https://www.simplygames.com/uploads/products/44955/44955_sm.jpg?v=MjAyNC0wOS0wOSAxNDoyMTowOA==" style="display: block;" title="Just Dance 2022..."/>
+       <div class="product_name" id="product-52">
+        Just Dance 2022...
+       </div>
+       <span>
+        <span style="color: #888888; text-decoration: line-through; font-style: italic;">
+         £29.99
+        </span>
+        £24.99
+       </span>
+      </a>
+      <a class="button in_stock add_to_basket" rel="6436" title="Just Dance 2022 on PS4">
+       Buy Now ❯
+      </a>
+     </div>
+     <div class="list_item">
+      <a href="/p/harvest-life-code-in-a-box-ps4" title="Harvest Life... on PS4">
+       <img alt="Harvest Life... " border="0" class="lazy" src="https://www.simplygames.com/uploads/products/45275/45275_sm.jpg?v=MjAyNC0wOS0wOSAxNDoyMTowOQ==" style="display: block;" title="Harvest Life..."/>
+       <div class="product_name" id="product-53">
+        Harvest Life...
+       </div>
+       <span>
+        £14.99
+       </span>
+      </a>
+      <a class="button in_stock add_to_basket" rel="6756" title="Harvest Life on PS4">
+       Buy Now ❯
+      </a>
+     </div>
+     <div class="list_item">
+      <a href="/p/xuan-yuan-sword-7-ps4" title="Xuan Yuan Sword 7... on PS4">
+       <img alt="Xuan Yuan Sword 7... " border="0" class="lazy" src="https://www.simplygames.com/uploads/products/47334/47334_sm.jpg?v=MjAyNC0wOS0wOSAxNDoyMToxMQ==" style="display: block;" title="Xuan Yuan Sword 7..."/>
+       <div class="product_name" id="product-54">
+        Xuan Yuan Sword 7...
+       </div>
+       <span>
+        <span style="color: #888888; text-decoration: line-through; font-style: italic;">
+         £34.99
+        </span>
+        £29.99
+       </span>
+      </a>
+      <a class="button in_stock add_to_basket" rel="8815" title="Xuan Yuan Sword 7 on PS4">
+       Buy Now ❯
+      </a>
+     </div>
+     <div class="list_item">
+      <a href="/p/fifa-22-ps4" title="FIFA 22... on PS4">
+       <img alt="FIFA 22... " border="0" class="lazy" src="https://www.simplygames.com/uploads/products/45065/45065_sm.jpg?v=MjAyNC0wOS0wOSAxNDoyMTowOA==" style="display: block;" title="FIFA 22..."/>
+       <div class="product_name" id="product-55">
+        FIFA 22...
+       </div>
+       <span>
+        <span style="color: #888888; text-decoration: line-through; font-style: italic;">
+         £29.99
+        </span>
+        £19.99
+       </span>
+      </a>
+      <a class="button in_stock add_to_basket" rel="6546" title="FIFA 22 on PS4">
+       Buy Now ❯
+      </a>
+     </div>
+     <div class="list_item">
+      <a href="/p/cris-tales-ps4" title="Cris Tales... on PS4">
+       <img alt="Cris Tales... " border="0" class="lazy" src="https://www.simplygames.com/uploads/products/50624/50624_sm.jpg?v=MjAyNC0wOS0wOSAxNDoyMToxNQ==" style="display: block;" title="Cris Tales..."/>
+       <div class="product_name" id="product-56">
+        Cris Tales...
+       </div>
+       <span>
+        <span style="color: #888888; text-decoration: line-through; font-style: italic;">
+         £19.99
+        </span>
+        £9.99
+       </span>
+      </a>
+      <a class="button in_stock add_to_basket" rel="12105" title="Cris Tales on PS4">
+       Buy Now ❯
+      </a>
+     </div>
+     <div class="list_item">
+      <a href="/p/two-point-hospital-jumbo-edition-ps4" title="Two Point Hospital Jumbo Edition... on PS4">
+       <img alt="Two Point Hospital Jumbo Edition... " border="0" class="lazy" src="https://www.simplygames.com/uploads/products/44622/44622_sm.jpg?v=MjAyNC0wOS0wOSAxNDoyMTowOA==" style="display: block;" title="Two Point Hospital Jumbo Edition..."/>
+       <div class="product_name" id="product-57">
+        Two Point Hospital Jumbo Edition...
+       </div>
+       <span>
+        £24.99
+       </span>
+      </a>
+      <a class="button in_stock add_to_basket" rel="6103" title="Two Point Hospital Jumbo Edition on PS4">
+       Buy Now ❯
+      </a>
+     </div>
+     <div class="list_item">
+      <a href="/p/final-fantasy-viii-remastered-ps4-44513" title="Final Fantasy VIII Remastered... on PS4">
+       <img alt="Final Fantasy VIII Remastered... " border="0" class="lazy" src="https://www.simplygames.com/uploads/products/44513/44513_sm.jpg?v=MjAyNC0wOS0wOSAxNDoyMTowOA==" style="display: block;" title="Final Fantasy VIII Remastered..."/>
+       <div class="product_name" id="product-58">
+        Final Fantasy VIII Remastered...
+       </div>
+       <span>
+        <span style="color: #888888; text-decoration: line-through; font-style: italic;">
+         £14.99
+        </span>
+        £11.99
+       </span>
+      </a>
+      <a class="button in_stock add_to_basket" rel="5994" title="Final Fantasy VIII Remastered on PS4">
+       Buy Now ❯
+      </a>
+     </div>
+     <div class="list_item">
+      <a href="/p/warhammer-chaosbane-ps4" title="Warhammer Chaosbane... on PS4">
+       <img alt="Warhammer Chaosbane... " border="0" class="lazy" src="https://www.simplygames.com/uploads/products/49839/49839_sm.jpg?v=MjAyNC0wOS0wOSAxNDoyMToxNA==" style="display: block;" title="Warhammer Chaosbane..."/>
+       <div class="product_name" id="product-59">
+        Warhammer Chaosbane...
+       </div>
+       <span>
+        <span style="color: #888888; text-decoration: line-through; font-style: italic;">
+         £12.99
+        </span>
+        £9.99
+       </span>
+      </a>
+      <a class="button in_stock add_to_basket" rel="11320" title="Warhammer Chaosbane on PS4">
+       Buy Now ❯
+      </a>
+     </div>
+     <div class="list_item">
+      <a href="/p/watch-dogs-legion-ps4" title="Watch Dogs: Legion... on PS4">
+       <img alt="Watch Dogs: Legion... " border="0" class="lazy" src="https://www.simplygames.com/uploads/products/43150/43150_sm.jpg?v=MjAyNC0wOS0wOSAxNDoyMTowNw==" style="display: block;" title="Watch Dogs: Legion..."/>
+       <div class="product_name" id="product-60">
+        Watch Dogs: Legion...
+       </div>
+       <span>
+        <span style="color: #888888; text-decoration: line-through; font-style: italic;">
+         £24.99
+        </span>
+        £5.99
+       </span>
+      </a>
+      <a class="button in_stock add_to_basket" rel="4631" title="Watch Dogs: Legion on PS4">
+       Buy Now ❯
+      </a>
+     </div>
+     <div class="list_item">
+      <a href="/p/rims-racing-ps4" title="RiMS Racing... on PS4">
+       <img alt="RiMS Racing... " border="0" class="lazy" src="https://www.simplygames.com/uploads/products/51193/51193_sm.jpg?v=MjAyNC0wOS0wOSAxNDoyMToxNQ==" style="display: block;" title="RiMS Racing..."/>
+       <div class="product_name" id="product-61">
+        RiMS Racing...
+       </div>
+       <span>
+        <span style="color: #888888; text-decoration: line-through; font-style: italic;">
+         £14.99
+        </span>
+        £11.99
+       </span>
+      </a>
+      <a class="button in_stock add_to_basket" rel="12674" title="RiMS Racing on PS4">
+       Buy Now ❯
+      </a>
+     </div>
+     <div class="list_item">
+      <a href="/p/beyond-a-steel-sky---limited-edition-ps4" title="Beyond a Steel Sky - Limited Edition... on PS4">
+       <img alt="Beyond a Steel Sky - Limited Edition... " border="0" class="lazy" src="https://www.simplygames.com/uploads/products/50621/50621_sm.jpg?v=MjAyNC0wOS0wOSAxNDoyMToxNQ==" style="display: block;" title="Beyond a Steel Sky - Limited Edition..."/>
+       <div class="product_name" id="product-62">
+        Beyond a Steel Sky - Limited Edition...
+       </div>
+       <span>
+        <span style="color: #888888; text-decoration: line-through; font-style: italic;">
+         £19.99
+        </span>
+        £11.99
+       </span>
+      </a>
+      <a class="button in_stock add_to_basket" rel="12102" title="Beyond a Steel Sky - Limited Edition on PS4">
+       Buy Now ❯
+      </a>
+     </div>
+     <div class="list_item">
+      <a href="/p/power-rangers-battle-for-the-grid---super-edition-ps4" title="Power Rangers: Battle for the Grid - Super Edition... on PS4">
+       <img alt="Power Rangers: Battle for the Grid - Super Edition... " border="0" class="lazy" src="https://www.simplygames.com/uploads/products/49121/49121_sm.jpg?v=MjAyNC0wOS0wOSAxNDoyMToxMw==" style="display: block;" title="Power Rangers: Battle for the Grid - Super Edition..."/>
+       <div class="product_name" id="product-63">
+        Power Rangers: Battle for the Grid - Super Edition...
+       </div>
+       <span>
+        £24.99
+       </span>
+      </a>
+      <a class="button in_stock add_to_basket" rel="10602" title="Power Rangers: Battle for the Grid - Super Edition on PS4">
+       Buy Now ❯
+      </a>
+     </div>
+     <div class="list_item">
+      <a href="/p/my-universe---school-teacher-ps4" title="My Universe: School Teacher... on PS4">
+       <img alt="My Universe: School Teacher... " border="0" class="lazy" src="https://www.simplygames.com/uploads/products/44212/44212_sm.jpg?v=MjAyNC0wOS0wOSAxNDoyMTowOA==" style="display: block;" title="My Universe: School Teacher..."/>
+       <div class="product_name" id="product-64">
+        My Universe: School Teacher...
+       </div>
+       <span>
+        £14.99
+       </span>
+      </a>
+      <a class="button in_stock add_to_basket" rel="5693" title="My Universe: School Teacher on PS4">
+       Buy Now ❯
+      </a>
+     </div>
+     <div class="list_item">
+      <a href="/p/destroy-all-humans-ps4" title="Destroy All Humans!... on PS4">
+       <img alt="Destroy All Humans!... " border="0" class="lazy" src="https://www.simplygames.com/uploads/products/43786/43786_sm.jpg?v=MjAyNC0wOS0wOSAxNDoyMTowNw==" style="display: block;" title="Destroy All Humans!..."/>
+       <div class="product_name" id="product-65">
+        Destroy All Humans!...
+       </div>
+       <span>
+        <span style="color: #888888; text-decoration: line-through; font-style: italic;">
+         £19.99
+        </span>
+        £9.99
+       </span>
+      </a>
+      <a class="button in_stock add_to_basket" rel="5267" title="Destroy All Humans! on PS4">
+       Buy Now ❯
+      </a>
+     </div>
+     <div class="list_item">
+      <a href="/p/tour-de-france-2020-ps4" title="Tour De France 2020... on PS4">
+       <img alt="Tour De France 2020... " border="0" class="lazy" src="https://www.simplygames.com/uploads/products/49136/49136_sm.jpg?v=MjAyNC0wOS0wOSAxNDoyMToxMw==" style="display: block;" title="Tour De France 2020..."/>
+       <div class="product_name" id="product-66">
+        Tour De France 2020...
+       </div>
+       <span>
+        <span style="color: #888888; text-decoration: line-through; font-style: italic;">
+         £24.99
+        </span>
+        £14.99
+       </span>
+      </a>
+      <a class="button in_stock add_to_basket" rel="10617" title="Tour De France 2020 on PS4">
+       Buy Now ❯
+      </a>
+     </div>
+     <div class="list_item">
+      <a href="/p/marvels-iron-man-vr-ps4" title="Marvel’s Iron Man VR... on PS4">
+       <img alt="Marvel’s Iron Man VR... " border="0" class="lazy" src="https://www.simplygames.com/uploads/products/43477/43477_sm.jpg?v=MjAyNC0wOS0wOSAxNDoyMTowNw==" style="display: block;" title="Marvel’s Iron Man VR..."/>
+       <div class="product_name" id="product-67">
+        Marvel’s Iron Man VR...
+       </div>
+       <span>
+        £24.99
+       </span>
+      </a>
+      <a class="button in_stock add_to_basket" rel="4958" title="Marvel’s Iron Man VR on PS4">
+       Buy Now ❯
+      </a>
+     </div>
+     <div class="list_item">
+      <a href="/p/snowrunner-ps4" title="SnowRunner... on PS4">
+       <img alt="SnowRunner... " border="0" class="lazy" src="https://www.simplygames.com/uploads/products/43691/43691_sm.jpg?v=MjAyNC0wOS0wOSAxNDoyMTowNw==" style="display: block;" title="SnowRunner..."/>
+       <div class="product_name" id="product-68">
+        SnowRunner...
+       </div>
+       <span>
+        <span style="color: #888888; text-decoration: line-through; font-style: italic;">
+         £39.99
+        </span>
+        £34.99
+       </span>
+      </a>
+      <a class="button in_stock add_to_basket" rel="5172" title="SnowRunner on PS4">
+       Buy Now ❯
+      </a>
+     </div>
+     <div class="list_item">
+      <a href="/p/nioh-hits-range-ps4" title="Nioh HITS Range... on PS4">
+       <img alt="Nioh HITS Range... " border="0" class="lazy" src="https://www.simplygames.com/uploads/products/43545/43545_sm.jpg?v=MjAyNC0wOS0wOSAxNDoyMTowNw==" style="display: block;" title="Nioh HITS Range..."/>
+       <div class="product_name" id="product-69">
+        Nioh HITS Range...
+       </div>
+       <span>
+        £12.99
+       </span>
+      </a>
+      <a class="button in_stock add_to_basket" rel="5026" title="Nioh HITS Range on PS4">
+       Buy Now ❯
+      </a>
+     </div>
+     <div class="list_item">
+      <a href="/p/just-dance-2020-ps4" title="Just Dance 2020... on PS4">
+       <img alt="Just Dance 2020... " border="0" class="lazy" src="https://www.simplygames.com/uploads/products/43154/43154_sm.jpg?v=MjAyNC0wOS0wOSAxNDoyMTowNw==" style="display: block;" title="Just Dance 2020..."/>
+       <div class="product_name" id="product-70">
+        Just Dance 2020...
+       </div>
+       <span>
+        £19.99
+       </span>
+      </a>
+      <a class="button in_stock add_to_basket" rel="4635" title="Just Dance 2020 on PS4">
+       Buy Now ❯
+      </a>
+     </div>
+     <div class="list_item">
+      <a href="/p/zombieland-double-tap---road-trip-ps4" title="Zombieland: Double Tap - Road Trip... on PS4">
+       <img alt="Zombieland: Double Tap - Road Trip... " border="0" class="lazy" src="https://www.simplygames.com/uploads/products/43444/43444_sm.jpg?v=MjAyNC0wOS0wOSAxNDoyMTowNw==" style="display: block;" title="Zombieland: Double Tap - Road Trip..."/>
+       <div class="product_name" id="product-71">
+        Zombieland: Double Tap - Road Trip...
+       </div>
+       <span>
+        £14.99
+       </span>
+      </a>
+      <a class="button in_stock add_to_basket" rel="4925" title="Zombieland: Double Tap - Road Trip on PS4">
+       Buy Now ❯
+      </a>
+     </div>
+     <div class="list_item">
+      <a href="/p/control-ps4" title="Control... on PS4">
+       <img alt="Control... " border="0" class="lazy" src="https://www.simplygames.com/uploads/products/42402/42402_sm.jpg?v=MjAyNC0wOS0wOSAxNDoyMTowNg==" style="display: block;" title="Control..."/>
+       <div class="product_name" id="product-72">
+        Control...
+       </div>
+       <span>
+        £14.99
+       </span>
+      </a>
+      <a class="button in_stock add_to_basket" rel="3883" title="Control on PS4">
+       Buy Now ❯
+      </a>
+     </div>
+     <div class="clear">
+     </div>
+    </div>
+
+
+    <div class="clear">
+    </div>
+   </div>
+  </div>
+  <div class="clear">
+  </div>
+  <!-- /content_wrapper -->
+  <!-- Cached copy, generated 17:19:31 -->
+  <div class="footer">
+   <div class="footer_wrapper">
+    <div class="content_2">
+     <h2> Help/Information </h2>
+     <!--<p><a href="/xmas-delivery">Christmas Delivery/Information 2019</a></p>-->
+     <p>
+      <a href="/terms-conditions">  Terms / Privacy Policy </a> <br/>
+      <a href="/faqs-help" title="FAQ's / Contact"> FAQ's / Contact </a> <br/>
+      <a href="/cookies" title="Cookies"> Cookies </a> <br/>
+      <a href="/console-recycling" title="Console Recycling"> Console Recycling </a> <br/>
+      <a href="/sitemap" title="Sitemap"> Sitemap </a>
+     </p>
+    </div>
+
+    <div class="content_2 footer_right">
+     <p>
+      <strong>
+       © Boss Developments Limited 2024
+       <br/>
+       Company No. 11564357
+      </strong>
+     </p>
+     <br/>
+     <p>
+      <strong>
+       Correspondence
+      </strong>
+      <br>
+       <a href="mailto:customer-services@simplygames.com?subject=Website Enquiry">
+        customer-services@simplygames.com
+       </a>
+      </br>
+     </p>
+     <p>
+      <strong>
+       Returns Address
+      </strong>
+      <br/>
+      24 Edison Road, St Ives, Cambs, PE27 3LF, UK
+     </p>
+     <br/>
+     <p>
+      <strong>
+       Registered Address
+      </strong>
+      <br>
+       The Old Workshop, 1 Ecclesall Road South, Sheffield, England, S11 9PA, UK
+      </br>
+     </p>
+    </div>
+
+    <div class="clear">
+    </div>
+   </div>
+   <!-- /footer_wrapper -->
+  </div>
+  <!-- /footer -->
+
+
+  <!-- Output the pixel location -->
+  <div id="output">
+  </div>
+  <!-- Cat image to overlay -->
+  <img alt="Catty Image" id="cattyImage" src="/static/images/catty.png"/>
+
+  
+  <div id="textInputContainer">
+    <div id="helpMessage">
+       Here you go!
+    </div>
+    <div class="input-container">
+       <input id="userTextInput" placeholder="Enter text here" type="text"/>
+       <button id="submitButton" onclick="handleSubmit()">
+          <img src="/static/images/send.png" alt="Submit" />
+       </button>
+    </div>
+ </div>
+
+
+  <script>
+   function findPixelLocation(elementId) {
+        // Find the element by ID
+        const element = document.getElementById(elementId);
+
+        if (element) {
+            // Get the element's bounding box (rectangle)
+            const rect = element.getBoundingClientRect();
+
+            // Get the element's top and left position relative to the viewport
+            const top = rect.top + window.scrollY;
+            const left = rect.left + window.scrollX;
+
+            // Output the pixel location
+            const output = document.getElementById('output');
+            output.textContent = `Element ID: ${elementId} | Pixel Location - Top: ${top}px, Left: ${left}px`;
+        } else {
+            console.error("Element not found!");
+        }
+    }
+
+    function showCatAtLocation(elementId) {
+    // Find the element by ID
+    const element = document.getElementById(elementId);
+    const catImage = document.getElementById('cattyImage');
+    const textInputContainer = document.getElementById('textInputContainer');
+
+    if (element) {
+        // Get the element's bounding box (rectangle)
+        const rect = element.getBoundingClientRect();
+
+        // Get the element's top and left position relative to the viewport
+        const top = rect.top + window.scrollY;
+        const left = rect.left + window.scrollX;
+
+        // Position the cat image over the selected element
+        catImage.style.top = `${top - 100}px`;
+        catImage.style.left = `${left - 50}px`;
+
+        textInputContainer.style.top = `${top - 250}px`; // Position the input box above the cat image
+        textInputContainer.style.left = `${left - 320}px`;
+
+        // Show the cat image
+        catImage.style.display = 'block';
+        textInputContainer.style.display = 'block';
+
+        // Check if the element is out of view
+        const viewportHeight = window.innerHeight;
+        const elementBottom = rect.bottom + window.scrollY;
+
+        if (elementBottom > window.scrollY + viewportHeight || top < window.scrollY) {
+            // Scroll the window so the element comes into view
+            window.scrollTo({
+                top: top - viewportHeight / 2, // Scroll to center the element vertically
+                behavior: 'smooth' // Smooth scrolling effect
+            });
+        }
+    } else {
+        console.error("Element not found!");
+    }
+    }
+
+    function moveToRelevantProduct() {
+    // Get the value from the input box
+    const productId = document.getElementById('userTextInput').value.trim();
+    
+    // If an ID is entered, move the cat to that location
+    if (productId) {
+        showCatAtLocation(productId);
+    } else {
+        console.error("No product ID entered!");
+    }
+    }
+  </script>
+
+  <script>
+    async function sendMessage() {
+        // Get the input value
+        const message = document.getElementById('userTextInput').value;
+
+        // Prepare form data to send to the server
+        const formData = new FormData();
+        formData.append('message', message);
+
+        // Send POST request to the server with the input
+        const response = await fetch('/process', {
+            method: 'POST',
+            body: formData
+        });
+
+        // Convert response to JSON
+        const data = await response.json();
+
+        // Display the result on the page
+        if (data.result) {
+            document.getElementById('helpMessage').innerText = data.result;
+            showCatAtLocation(data.productID);  // Move to the relevant product
+        } else {
+            document.getElementById('helpMessage').innerText = 'Error: ' + data.error;
+        }
+    }
+
+    // This function handles both moving to the relevant product and sending the message.
+    function handleSubmit() {
+        // Get the value from the input box
+        const productId = document.getElementById('userTextInput').value.trim();
+
+        // If an ID is entered, move the cat to that location and send the message
+        if (productId) {
+
+            sendMessage();                 // Send the message to the server
+        } else {
+            console.error("No product ID entered!");
+        }
+    }
+
+
+    </script>
+
+
+
+ </body>
+</html>
+<!-- This page was generated in 0.0068 seconds -->
+<!-- Using 768 kb of memory -->

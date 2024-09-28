@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flask Client-Server Example</title>
+    <script>
+        async function sendMessage() {
+            // Get the input value
+            const message = document.getElementById('message').value;
+
+            // Prepare form data to send to the server
+            const formData = new FormData();
+            formData.append('message', message);
+
+            // Send POST request to the server with the input
+            const response = await fetch('/process', {
+                method: 'POST',
+                body: formData
+            });
+
+            // Convert response to JSON
+            const data = await response.json();
+
+            // Display the result on the page
+            if (data.result) {
+                document.getElementById('result').innerText = 'Result: ' + data.result;
+            } else {
+                document.getElementById('result').innerText = 'Error: ' + data.error;
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Send a Message to the Server</h1>
+
+    <!-- Input box and button to send message -->
+    <input type="text" id="message" placeholder="Type something...">
+    <button onclick="sendMessage()">Submit</button>
+
+    <!-- Area to display the result -->
+    <p id="result"></p>
+</body>
+</html>
