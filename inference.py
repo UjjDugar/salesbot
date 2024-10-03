@@ -76,7 +76,7 @@ def generate(prompt):
 
     store_prompt(prompt) # store the user input in the temporary memory
 
-    prompt = f'Instructions: Answer as a helpful assistant in one or two short sentences. Use bullet points when relevant. Only select the most relevant product from the list.\n\nUser input: {prompt}\n\nPrevious inputs: {history_results}\n\nBackground information: {product_results}'
+    prompt = f'Instructions: Instructions: Answer as a helpful friend giving a recommendation in casual language. Dont exceed 35 words. Only talk about the one most relevant product. If no product is very relevant, mention that. No need to include any link or prices.\n\nUser input: {prompt}\n\nPrevious inputs: {history_results}\n\nBackground information: {product_results}'
 
     llm = GPT(llm_model)
     response = llm.write_message(prompt)
@@ -93,7 +93,6 @@ def generate(prompt):
 
     # chat_count += 1
     return response, relevant_id, suggestion_ids
-
 
 
 if __name__ == '__main__':
