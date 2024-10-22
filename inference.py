@@ -39,7 +39,7 @@ def generate(prompt, previous_response=''):
     user_history.append(prompt)
 
     product_results = [get_info(id) for id in product_ids]
-    prompt = f'Instructions: Answer as a helpful assistant in one or two short sentences. Use bullet points when relevant. Only select the most relevant product from the list.\n\nUser input: {prompt}\n\nPrevious inputs: {' '.join(user_history)}\n\nBackground information: {'\n\n'.join(product_results)}'
+    prompt = f'Instructions: Answer as a helpful friend giving a recommendation in casual language. Dont exceed 35 words. Only talk about the one most relevant product. If no product is very relevant, mention that. No need to include any link or prices.\n\nUser input: {prompt}\n\nPrevious inputs: {' '.join(user_history)}\n\nBackground information: {'\n\n'.join(product_results)}'
     response = llm.write_message(prompt)
     
     encoded_response = embedder_model.encode(response, convert_to_tensor=True).cpu().numpy().reshape(1, -1)

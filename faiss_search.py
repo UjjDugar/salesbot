@@ -3,6 +3,7 @@ import numpy as np
 import faiss
 from sentence_transformers import SentenceTransformer
 import sys
+from rich import traceback ; traceback.install()
 
 embedding_model = SentenceTransformer('all-MiniLM-L6-v2')
 
@@ -19,11 +20,11 @@ def faiss_search(query, k=10):
     ids = set()
     return_ids = []
 
-    for idx in i:
-        id = idx//10000 # remove trailing 4 identifiers
+    for id_with_extra_numbers in i:
+        id = id_with_extra_numbers//10000 # remove trailing 4 identifiers
         if id not in ids:
             ids.add(id)
-            return_ids.append(id)
+            return_ids.append(id) # return_ids also contains unique ids 
 
         if len(return_ids) == RETURN_K:
             break
@@ -35,8 +36,23 @@ def faiss_search(query, k=10):
 
 
 if __name__ == '__main__':
-    query = 'Looking for an action shooter game under 20 pounds.'
+    # query = 'Looking for an action shooter game under 20 pounds.'
     query = 'third-person action shooter game'
     index = faiss.read_index('product_data.bin')
     product_ids = faiss_search(query)
+
+
     print(f"Product IDs for query '{query}': {product_ids}")
+
+    data = pd.read_csv('product_data.csv')
+
+    i=1
+    for product_id in product_ids:
+        if i:
+            unclean_data = data[data['product_id'] == product_id].to_string(index=False)
+            clean_data = "".join(unclean_data.split('  '))
+            print(clean_data)
+            # filtered_data = data[data['product_id'] == product_id]
+            # filtered_data.to_csv('filtered_data.csv', index=False)
+        i=0
+        

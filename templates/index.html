@@ -61,7 +61,7 @@ body {
     position: absolute;
     display: none; /* Initially hidden */
     z-index: 10000; /* On top of other elements */
-    width: 100px;
+    width: 130px;
     height: auto;
     transition: top 0.8s ease, left 0.8s ease;
 }
@@ -190,15 +190,10 @@ body {
     </li>
    </ul>
 
-   <!-- Buttons to trigger the location detection -->
-   <button onclick="findPixelLocation('product-3')">
-    Find Sand Land Location
-   </button>
+   <!-- Buttons -->
    <button onclick="showCatAtLocation('product-3')">
     Show Cat at Sand Land
    </button>
-   <button onclick="findPixelLocation('product-11')">
-    Find NBA Location
    </button>
    <button onclick="showCatAtLocation('product-11')">
     Show Cat at NBA
@@ -1486,16 +1481,27 @@ body {
 
         // Get the element's top and left position relative to the viewport
         const top = rect.top + window.scrollY;
-        const left = rect.left + window.scrollX;
+        let left = rect.left + window.scrollX;
 
-        // Position the cat image over the selected element
-        catImage.style.top = `${top - 100}px`;
-        catImage.style.left = `${left - 50}px`;
+        // Check if left position is less than 1/6th of the screen width
+        const screenWidth = window.innerWidth;
+        const oneSixthScreenWidth = screenWidth / 6;
 
-        textInputContainer.style.top = `${top - 250}px`; // Position the input box above the cat image
-        textInputContainer.style.left = `${left - 320}px`;
+        if (left < oneSixthScreenWidth) {
+            // Adjust positioning to the right instead of the left
+            catImage.style.left = `${left + 130}px`; // Place the cat 50px to the right
+            textInputContainer.style.left = `${left + 220}px`; // Place the input box to the right of the element
+        } else {
+            // Normal positioning to the left
+            catImage.style.left = `${left - 50}px`; // Place the cat 50px to the left
+            textInputContainer.style.left = `${left - 390}px`; // Place the input box to the left of the element
+        }
 
-        // Show the cat image
+        // Position the cat image vertically
+        catImage.style.top = `${top - 110}px`;
+        textInputContainer.style.top = `${top - 230}px`; // Position the input box above the cat image
+
+        // Show the cat image and input container
         catImage.style.display = 'block';
         textInputContainer.style.display = 'block';
 
@@ -1514,6 +1520,8 @@ body {
         console.error("Element not found!");
     }
     }
+
+
 
     function moveToRelevantProduct() {
     // Get the value from the input box
@@ -1553,6 +1561,8 @@ body {
         } else {
             document.getElementById('helpMessage').innerText = 'Error: ' + data.error;
         }
+        document.getElementById('userTextInput').value = '';
+
     }
 
     // This function handles both moving to the relevant product and sending the message.
@@ -1571,7 +1581,6 @@ body {
 
 
     </script>
-
 
 
  </body>
